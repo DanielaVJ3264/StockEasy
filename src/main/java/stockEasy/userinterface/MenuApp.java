@@ -33,12 +33,11 @@ public class MenuApp {
             DataBaseConnection.getInstance().getConnection();
 
             System.out.println("""
-                    Seleccione una opción
-                    1. Registro Usuario
-                    2. Gestión Productos
-                    3. Salir
-                    """);
-
+        1. Crear Producto
+        2. Ver Productos
+        3. Eliminar Producto
+        4. Cerrar Sesión
+        """);
             int option = sc.nextInt();
 
             sc.nextLine();
@@ -51,8 +50,29 @@ public class MenuApp {
                     break;
 
                 case 2:
-                    System.out.println("Gestión Productos");
-                    productoMenu();
+
+                    System.out.println("=== INICIAR SESION ===");
+
+                    String username =
+                            TypeValidator.validateString("Ingrese username");
+
+                    String password =
+                            TypeValidator.validateString("Ingrese password");
+
+                    boolean loginCorrecto =
+                            usuarioView.loginUsuario(username, password);
+
+                    if (loginCorrecto) {
+
+                        System.out.println("Acceso concedido");
+
+                        productoMenu();
+
+                    } else {
+
+                        System.out.println("Acceso denegado");
+                    }
+
                     break;
 
                 case 3:
@@ -97,35 +117,21 @@ public class MenuApp {
                     break;
 
                 case 2:
-                    System.out.println("Actualizar Producto");
-                    productoView.updateProducto(
-                            TypeValidator.validateInt("Ingrese el id del producto")
-                    );
-                    break;
-
-                case 3:
                     System.out.println("Ver Productos");
                     productoView.getAllProductos();
                     break;
 
-                case 4:
-                    System.out.println("Ver Producto por Id");
-
-                    int id = sc.nextInt();
-
-                    productoView.getProductoById(id);
-                    break;
-
-                case 5:
+                case 3:
                     System.out.println("Eliminar Producto");
 
-                    int idDelete = sc.nextInt();
+                    int idDelete =
+                            TypeValidator.validateInt("Ingrese el id");
 
                     productoView.deleteProducto(idDelete);
                     break;
 
-                case 6:
-                    System.out.println("Volviendo al menú principal");
+                case 4:
+                    System.out.println("Cerrando sesión");
                     init = false;
                     break;
 

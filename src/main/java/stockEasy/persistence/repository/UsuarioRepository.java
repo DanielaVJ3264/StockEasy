@@ -75,4 +75,18 @@ public class UsuarioRepository implements UsuarioPersistencePort {
 
         System.out.println("Usuario no encontrado");
     }
+    @Override
+    public Usuario loginUsuario(String username, String password) {
+
+        for (Usuario usuario : usuarios) {
+
+            if (usuario.getUsername().equals(username)
+                    && usuario.getPassword().equals(password)) {
+
+                return usuario;
+            }
+        }
+
+        return null;
+    }
 }

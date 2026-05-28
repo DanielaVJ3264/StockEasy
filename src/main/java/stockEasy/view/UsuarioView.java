@@ -43,4 +43,9 @@ public class UsuarioView {
 
         usuarioServiceImpl.deleteUsuario(id);
     }
+    public boolean loginUsuario(String username, String password) {
+
+        return usuarioServiceImpl
+                .loginUsuarioService(username, password);
+    }
 }

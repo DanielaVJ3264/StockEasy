@@ -63,6 +63,28 @@ public class UsuarioRepositoryDB implements UsuarioPersistencePort {
     public void deleteUsuarioRepository(int id) {
 
     }
+    @Override
+    public Usuario loginUsuario(String username, String password) {
+
+        String sql = "SELECT * FROM usuario WHERE username = ? AND password = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setString(1, username);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return (Usuario) rowMapper.mapRow(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al iniciar sesión", e);
+        }
+
+        return null;
+    }
 
     // Helpers
     private void setCustomParams(PreparedStatement ps, Usuario usuario) throws SQLException {
@@ -70,6 +92,7 @@ public class UsuarioRepositoryDB implements UsuarioPersistencePort {
         ps.setInt(1, usuario.getId());
         ps.setString(2, usuario.getUsername());
         ps.setString(3, usuario.getPassword());
+
 
     }
 }

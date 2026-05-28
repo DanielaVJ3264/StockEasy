@@ -95,4 +95,22 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         usuarioPersistencePort.deleteUsuarioRepository(id);
     }
+    public boolean loginUsuarioService(String username, String password) {
+
+        Usuario usuario =
+                usuarioPersistencePort.loginUsuario(username, password);
+
+        if (usuario != null) {
+
+            System.out.println(
+                    "Bienvenido " + usuario.getUsername()
+            );
+
+            return true;
+        }
+
+        System.out.println("Usuario o contraseña incorrectos");
+
+        return false;
+    }
 }

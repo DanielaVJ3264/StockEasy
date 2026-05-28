@@ -15,4 +15,5 @@ public interface UsuarioPersistencePort {
     Usuario updateUsuarioRepository(int id);
 
     void deleteUsuarioRepository(int id);
+    Usuario loginUsuario(String username, String password);
 }
