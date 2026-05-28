@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductoRepositoryDB implements ProductoPersistencePort {
@@ -51,7 +52,34 @@ public class ProductoRepositoryDB implements ProductoPersistencePort {
 
     @Override
     public List<Producto> getAllProductos() {
-        return List.of();
+
+        List<Producto> productos = new ArrayList<>();
+
+        String sql = "SELECT * FROM producto";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+
+                Producto producto = (Producto) rowMapper.mapRow(rs);
+
+                productos.add(producto);
+
+                System.out.println(
+                        "Id: " + producto.getId() +
+                                " | Nombre: " + producto.getNombre() +
+                                " | Descripción: " + producto.getDescripcion() +
+                                " | Cantidad: " + producto.getCantidad() +
+                                " | Precio: " + producto.getPrecio()
+                );
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener productos", e);
+        }
+
+        return productos;
     }
 
     @Override
@@ -62,6 +90,26 @@ public class ProductoRepositoryDB implements ProductoPersistencePort {
     @Override
     public void deleteProductoRepository(int id) {
 
+        String sql = "DELETE FROM producto WHERE id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+
+                System.out.println("Producto eliminado correctamente");
+
+            } else {
+
+                System.out.println("Producto no encontrado");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al eliminar producto", e);
+        }
     }
 
     // Helpers
