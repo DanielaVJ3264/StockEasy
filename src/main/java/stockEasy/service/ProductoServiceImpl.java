@@ -106,8 +106,6 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public void deleteProducto(int id) {
 
-        System.out.println("Estoy en el service");
-
-        productoPersistencePort.deleteProductoRepository(id);
+           productoPersistencePort.deleteProductoRepository(id);
     }
 }

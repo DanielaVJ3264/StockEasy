@@ -39,8 +39,6 @@ public class ProductoView {
 
     public void deleteProducto(int id) {
 
-        System.out.println("Estoy en el view");
-
         productoServiceImpl.deleteProducto(id);
     }
 }
