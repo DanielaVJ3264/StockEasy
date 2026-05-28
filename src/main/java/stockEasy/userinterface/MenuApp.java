@@ -25,26 +25,24 @@ public class MenuApp {
         System.out.println("Presione 1 para iniciar la Aplicación");
 
         int init = sc.nextInt();
-
         sc.nextLine();
 
         while (init != 0) {
 
-            DataBaseConnection.getInstance().getConnection();
-
             System.out.println("""
-        1. Crear Producto
-        2. Ver Productos
-        3. Eliminar Producto
-        4. Cerrar Sesión
-        """);
-            int option = sc.nextInt();
+                    Seleccione una opción
+                    1. Registrar Usuario
+                    2. Iniciar Sesión
+                    3. Salir
+                    """);
 
+            int option = sc.nextInt();
             sc.nextLine();
 
             switch (option) {
 
                 case 1:
+
                     System.out.println("Registro Usuario");
                     usuarioView.createUsuario();
                     break;
@@ -76,11 +74,13 @@ public class MenuApp {
                     break;
 
                 case 3:
+
                     System.out.println("Salir del sistema");
                     init = 0;
                     break;
 
                 default:
+
                     System.out.println("Ingrese una opción válida");
             }
         }
@@ -92,50 +92,50 @@ public class MenuApp {
 
         boolean init = true;
 
-        sc.nextLine();
-
         while (init) {
 
             System.out.println("""
                     1. Crear Producto
-                    2. Actualizar Producto
-                    3. Ver Productos
-                    4. Ver Producto por Id
-                    5. Eliminar Producto
-                    6. Volver
+                    2. Ver Productos
+                    3. Eliminar Producto
+                    4. Cerrar Sesión
                     """);
 
             int opt = sc.nextInt();
-
             sc.nextLine();
 
             switch (opt) {
 
                 case 1:
+
                     System.out.println("Crear Producto");
                     productoView.createProducto();
                     break;
 
                 case 2:
+
                     System.out.println("Ver Productos");
                     productoView.getAllProductos();
                     break;
 
                 case 3:
+
                     System.out.println("Eliminar Producto");
 
                     int idDelete =
-                            TypeValidator.validateInt("Ingrese el id");
+                            TypeValidator.validateInt("Ingrese el id del producto");
 
                     productoView.deleteProducto(idDelete);
                     break;
 
                 case 4:
+
                     System.out.println("Cerrando sesión");
                     init = false;
                     break;
 
                 default:
+
                     System.out.println("Seleccione una opción válida");
             }
         }
